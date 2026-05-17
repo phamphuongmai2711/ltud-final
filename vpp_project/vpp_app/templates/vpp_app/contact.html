@@ -1,0 +1,10 @@
+<h2>Liên Hệ</h2>
+<!-- Nhúng Google Maps Học viện Ngân hàng -->
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.6293994344585!2d105.82594611488307!3d21.007487285996614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac8109765ba5%3A0xd84740ece05680ee!2zSOG7jWMgVmnhu4duIE5nw6JuIEjDoG5n!5e0!3m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+<h3>Gửi Yêu Cầu</h3>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Gửi</button>
+</form>
