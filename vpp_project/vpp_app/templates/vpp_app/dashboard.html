@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Báo cáo thống kê Admin | Nóte{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card shadow-sm mt-4">
+        <div class="card-header bg-dark text-white fw-bold py-3">
+            🔴 Thống kê lượt khách ĐANG XEM hệ thống (Real-time)
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped table-hover mb-0 align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" class="ps-4 py-3">Tên Trang Web</th>
+                        <th scope="col" class="text-center py-3" style="width: 250px;">Lượng Khách Đang Online</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for page in active_counts %}
+                    <tr>
+                        <td class="ps-4 fw-semibold text-secondary">{{ page.page_name }}</td>
+                        <td class="text-center fw-bold text-success fs-5">
+                            {% if page.count > 0 %}
+                                <span class="spinner-grow spinner-grow-sm text-success me-2" role="status" aria-hidden="true"></span>
+                                {{ page.count }} người
+                            {% else %}
+                                <span class="d-inline-block rounded-circle bg-secondary me-2" style="width: 10px; height: 10px; opacity: 0.4;"></span>
+                                <span class="text-muted fs-6 fw-normal">0 người</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
