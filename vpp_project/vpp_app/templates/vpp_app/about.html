@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Giới thiệu | Nóte{% endblock %}
+
+{% block content %}
+<section class="hero-section text-center py-5 bg-light">
+    <div class="container py-5">
+        <h1 class="display-4 fw-bold text-primary mb-3">Chào bạn, chúng mình là Nóte.</h1>
+        <p class="lead text-muted fst-italic">"Nóte: Hơn cả một dòng 'note', đó là sự 'nắn nót'."</p>
+    </div>
+</section>
+
+<section class="brand-story py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="fw-bold mb-4">Câu chuyện của Nóte</h2>
+                <p class="fs-5 text-secondary">
+                    Bạn có bao giờ nhận ra, giữa nhịp sống hối hả, khoảnh khắc ta ngồi xuống và viết tay một điều gì đó chính là lúc tâm trí được tĩnh lặng nhất?
+                </p>
+                <p class="fs-5 text-secondary">
+                    Cái tên <strong>Nóte</strong> ra đời từ một sự kết hợp nhỏ bé nhưng đầy tự hào của chúng mình: <em>Note (Ghi chép)</em> và <em>Nắn Nót</em>. Nóte tin rằng, những gì đáng để viết ra đều xứng đáng được viết một cách cẩn trọng và nâng niu.
+                </p>
+                <p class="fs-5 text-secondary">
+                    Chúng mình không chỉ mang đến những cuốn sổ, cây bút. Nóte mang đến cho bạn một không gian riêng trên trang giấy – nơi bạn có thể chậm lại một nhịp, nắn nót ghi lại những mục tiêu, những cảm xúc vụn vặt, hay những ý tưởng sắp làm thay đổi cả thế giới của riêng bạn.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="brand-promise py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5">Lời hứa từ Nóte</h2>
+        <div class="row g-4">
+            
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-primary mb-3">Chất liệu nâng niu nét chữ</h5>
+                        <p class="card-text text-muted">
+                            Từng trang giấy được Nóte tuyển chọn kỹ lưỡng, độ dày vừa vặn, không lem mực, giúp mỗi nét viết "nắn nót" của bạn trở nên trơn tru và hoàn hảo nhất.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-primary mb-3">Thiết kế khơi gợi cảm hứng</h5>
+                        <p class="card-text text-muted">
+                            Vẻ đẹp tối giản, thanh lịch nhưng không đơn điệu. Mỗi sản phẩm của Nóte khi đặt trên bàn làm việc đều là một lời nhắc nhở nhẹ nhàng: Hãy tập trung và sáng tạo nhé.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-primary mb-3">Người bạn đồng hành bền bỉ</h5>
+                        <p class="card-text text-muted">
+                            Dù là những bài học dài trên giảng đường hay những kế hoạch tương lai ấp ủ, Nóte luôn ở đây, giữ gìn trọn vẹn từng trang thanh xuân của bạn.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="cta-section text-center py-5">
+    <div class="container py-4">
+        <a href="{% url 'products' %}" class="btn btn-primary btn-lg rounded-pill px-5 py-3 fw-bold shadow">
+            Bắt đầu "Nóte" ngay hôm nay
+        </a>
+    </div>
+</section>
+{% endblock %}
