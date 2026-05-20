@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import now
 
 class Product(models.Model):
     name = models.CharField(max_length=200) # Trường tên sản phẩm
@@ -17,3 +18,11 @@ class ContactLead(models.Model):
 
     def __str__(self):
         return self.fullname
+
+class ActiveViewer(models.Model):
+    page_name = models.CharField(max_length=100)       # Tên trang web đang xem
+    session_key = models.CharField(max_length=255)     # Mã định danh thiết bị của khách
+    last_seen = models.DateTimeField(default=now)      # Thời gian nhìn thấy khách lần cuối
+
+    def __str__(self):
+        return f"{self.page_name} - Khách: {self.session_key}"
