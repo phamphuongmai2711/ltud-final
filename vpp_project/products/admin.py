@@ -1,6 +1,6 @@
 from django.contrib import admin
-
-# Register your models here.
-from .models import Product
-
+from .models import Product, ContactLead
+from . import models
+# Đăng ký model để hiển thị trên trang admin
 admin.site.register(Product)
+admin.site.register(ContactLead)
