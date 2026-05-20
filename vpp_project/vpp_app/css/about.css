@@ -1,0 +1,47 @@
+/* 1. IMPORT FONT TỪ GOOGLE FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Mulish:wght@400;600;700&display=swap');
+
+/* 2. CẤU HÌNH GỐC CHỈ DÀNH RIÊNG CHO TRANG ABOUT */
+.about-page-wrapper {
+    background-color: #f7f7f9; /* Nền trắng xám nhẹ */
+    font-family: 'Mulish', sans-serif;
+    color: #333333; /* Xám đen dịu mắt */
+    font-size: 17px; 
+    line-height: 1.8; 
+}
+
+.about-page-wrapper h1, 
+.about-page-wrapper h2, 
+.about-page-wrapper h5 {
+    font-family: 'Lora', serif; /* Font có chân cho tiêu đề */
+    color: #222222;
+    font-weight: 700;
+}
+
+/* 3. HIỆU ỨNG ĐỘNG CHO LỜI HỨA */
+.about-page-wrapper .promise-card {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border-radius: 16px;
+    border: none;
+}
+
+.about-page-wrapper .promise-card:hover {
+    transform: translateY(-15px); /* Nảy lên 15px */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08) !important;
+    cursor: pointer;
+}
+
+/* Các tone màu Pastel */
+.about-page-wrapper .pastel-pink { background-color: #fff0f3 !important; }
+.about-page-wrapper .pastel-blue { background-color: #f0f8ff !important; }
+.about-page-wrapper .pastel-yellow { background-color: #fffde7 !important; }
+
+/* Định dạng text bên trong thẻ Lời hứa */
+.about-page-wrapper .card-title {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+.about-page-wrapper .card-text {
+    font-size: 16px;
+    color: #555555;
+}
