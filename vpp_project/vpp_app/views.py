@@ -41,11 +41,13 @@ def news(request):
 
 def contact(request):
     track_active_viewer(request, 'Trang Liên Hệ')
+    success = False
     form = ContactForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect("home")
-    return render(request, "vpp_app/contact.html", {"form": form})
+        success = True
+        form = ContactForm()
+    return render(request, "vpp_app/contact.html", {"form": form, "success": success})
 
 # ====================================================================
 # HÀM XỬ LÝ TRANG DASHBOARD ADMIN (CÁI BẠN VỪA HỎI NÈ ĐÃ THÊM VÀO ĐÂY)
