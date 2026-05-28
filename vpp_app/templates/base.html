@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Nóte{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-pS6DA2RZjzUt4pbbQ8yY4Gj/DzSUjq7oBKkrxs+QnRKMvQpScEyX4zZCMI5kG38T7F9m4tIZr8WpJ5C8IpSHqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body { background: #f8f4ee; color: #2e2a28; }
+        .navbar-brand { font-family: 'Playfair Display', serif; font-weight: 700; letter-spacing: 0.12em; }
+        .nav-link { color: #4a3f3d !important; }
+        .nav-link:hover { color: #b85d4d !important; }
+        .page-header { padding-top: 90px; }
+    </style>
+</head>
+<body>
+    <header class="sticky-top bg-white shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light container">
+            <a class="navbar-brand" href="{% url 'home' %}">Nóte</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Giới thiệu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'product_list' %}">Sản phẩm</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'news' %}">Tin tức</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Liên hệ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="page-header">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="mt-5 py-4 bg-white border-top">
+        <div class="container text-center text-muted small">© 2026 Nóte. Tất cả quyền được bảo lưu.</div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js" integrity="sha512-ZQ6yW4tQWv4gX5mJ1oz1s2zD7QnUnbw+Z+kzRkVgI9hL7D8j1vBqfF2yqH8ZzIIiWmM+K4xo0QvGI+Fij7KVkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
