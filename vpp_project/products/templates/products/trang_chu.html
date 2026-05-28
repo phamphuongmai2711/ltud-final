@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRABIT NOTEBOOK - Cửa Hàng Sổ Tay Nghệ Thuật</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* DESIGN GUIDELINE: Phong cách thơ mộng, nghệ thuật, font chữ có chân quý phái */
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #fdfbf7; /* Màu nền kem giấy nghệ thuật nhẹ nhàng */
+            color: #2c2523;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* ================= 1. THANH MENU CHỨC NĂNG NGHỆ THUẬT (STICKY HEADER) ================= */
+        header { 
+            background-color: #ffffff; 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            z-index: 1000; 
+            box-shadow: 0 4px 25px rgba(44,37,35,0.03);
+            border-bottom: 1px solid #f3ece4;
+        }
+        
+        /* Thanh thông báo nhỏ trên cùng (Top bar) */
+        .top-bar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #8c7e7a;
+            border-bottom: 1px solid #fcfaf7;
+        }
+        .top-bar-left { display: flex; gap: 30px; }
+        .top-bar-item { cursor: pointer; transition: color 0.3s; }
+        .top-bar-item:hover { color: #cc7a6f; }
+
+        /* Thanh menu điều hướng chính */
+        .main-nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 22px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Chữ Logo nghệ thuật cách điệu */
+        .brand-logo { 
+            font-family: 'Playfair Display', serif;
+            font-size: 34px; 
+            font-weight: 700; 
+            letter-spacing: 10px; /* Giãn chữ nghệ thuật rất rộng */
+            color: #1a1514; 
+            margin-bottom: 18px; 
+            cursor: pointer; 
+        }
+        
+        /* Các nút chức năng trên Menu chữ nghệ thuật */
+        .menu-links { display: flex; gap: 45px; }
+        .menu-links a { 
+            text-decoration: none; 
+            color: #4a3f3d; 
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px; /* Font chữ thơ mộng, nét thanh nét đậm */
+            font-weight: 600; 
+            letter-spacing: 1px;
+            padding: 5px 0;
+            position: relative;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .menu-links a:hover, .menu-links a.active { color: #cc7a6f; }
+        
+        /* Đường gạch chân khi trỏ chuột vào thanh chức năng */
+        .menu-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background-color: #cc7a6f;
+            transition: all 0.35s ease;
+            transform: translateX(-50%);
+        }
+        .menu-links a:hover::after, .menu-links a.active::after { width: 100%; }
+
+        /* Bù khoảng trống chiều cao menu cố định */
+        .content-wrapper { margin-top: 155px; }
+
+        /* ================= 2. BANNER CHUYỂN CẢNH MƯỢT MÀ VỚI ẢNH NỘI BỘ ================= */
+        .slider-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            height: 420px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid #f3ece4;
+        }
+        .slides-track {
+            display: flex;
+            flex-wrap: nowrap;
+            height: 100%;
+            transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); /* Hiệu ứng lướt lướt êm ái quý phái */
+            will-change: transform;
+        }
+        .slide-item {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 100%;
+            overflow: hidden;
+            /* subtle background to detect missing/white images */
+            background-color: #f6f4f2;
+        }
+        .slide-item img.slide-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .slide-item.no-img {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7a6e6a;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            background-color: #e9e6e4;
+        }
+        /* Lớp phủ mịn làm dịu ảnh cho chữ nổi lên */
+        .slide-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(253, 251, 247, 0.15); 
+        }
+        .slide-text-box {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #1a1514;
+            max-width: 700px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.85); /* Khung nền giấy mờ lãng mạn */
+            border: 1px solid rgba(243,236,228,0.6);
+            backdrop-filter: blur(5px);
+            border-radius: 2px;
+        }
+        .slide-text-box h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 600;
+            font-style: italic;
+            margin: 0 0 15px 0;
+            color: #1a1514;
+        }
+        .slide-text-box p {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #6e5f5c;
+            margin: 0;
+        }
+
+        /* Dấu chấm tròn nhỏ tinh tế chuyển cảnh dưới Banner */
+        .slider-indicators {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 14px;
+            z-index: 10;
+        }
+        .indicator-dot {
+            width: 6px;
+            height: 6px;
+            background-color: rgba(44, 37, 35, 0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+        .indicator-dot.active { 
+            background-color: #cc7a6f; 
+            transform: scale(1.4); 
+        }
+
+        .slider-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(26,21,20,0.5);
+            color: #fff;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        .slider-control.prev { left: 18px; }
+        .slider-control.next { right: 18px; }
+
+        /* ================= 3. KHỐI NỘI DUNG CHÍNH TRANG CHỦ ================= */
+        .main-container { max-width: 1100px; margin: 70px auto; padding: 0 20px; }
+        
+        /* Hiệu ứng chuyển đổi đóng mở trang ẩn/hiện mượt mà */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: elegantFade 0.6s ease; }
+        @keyframes elegantFade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Tiêu đề chữ nghệ thuật tinh tế */
+        .section-headline { 
+            text-align: center; 
+            font-family: 'Playfair Display', serif;
+            font-size: 32px; 
+            font-weight: 600;
+            color: #1a1514; 
+            margin-bottom: 50px; 
+            letter-spacing: 1px;
+        }
+        
+        /* Lưới hiển thị các thông số uy tín */
+        .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 35px; text-align: center; }
+        .trust-card { 
+            background: #ffffff; 
+            padding: 45px 25px; 
+            border-radius: 2px; 
+            box-shadow: 0 4px 25px rgba(230,220,210,0.15); 
+            border: 1px solid #f3ece4; 
+            transition: all 0.3s;
+        }
+        .trust-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(216,196,182,0.25); }
+        .trust-number { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 600; font-style: italic; color: #cc7a6f; }
+        .trust-text { font-size: 11px; font-weight: 600; color: #8c7e7a; margin-top: 12px; letter-spacing: 1.5px; text-transform: uppercase; }
+
+        /* ================= 4. KHỐI Ý KIẾN KHÁCH HÀNG CHỮ ĐẸP ================= */
+        .feedback-container { background: #ffffff; padding: 60px; border-radius: 2px; border: 1px solid #f3ece4; box-shadow: 0 4px 25px rgba(230,220,210,0.12); }
+        .feedback-row { border-bottom: 1px solid #fbf9f6; padding: 30px 0; }
+        .feedback-row:last-child { border-bottom: none; }
+        
+        /* Chữ nội dung feedback nghệ thuật */
+        .feedback-content { 
+            font-family: 'Cormorant Garamond', serif; 
+            font-style: italic; 
+            color: #3d3331; 
+            line-height: 1.8; 
+            font-size: 20px; /* Font chữ lớn, nét bay bổng quý phái */
+            margin: 0;
+        }
+        .feedback-signature { 
+            text-align: right; 
+            font-weight: 600; 
+            font-size: 12px; 
+            color: #cc7a6f; 
+            margin-top: 12px; 
+            letter-spacing: 1.5px; 
+            text-transform: uppercase; 
+        }
+        
+        /* Khung Form điền ý kiến */
+        .feedback-form-box { margin-top: 60px; border-top: 1px dashed #e6ded6; padding-top: 50px; }
+        .feedback-form-box h3 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 600; color: #1a1514; margin-bottom: 25px; }
+        .feedback-form-box input, .feedback-form-box textarea { 
+            width: 100%; padding: 15px 20px; margin: 14px 0; 
+            border: 1px solid #e6ded6; border-radius: 2px; 
+            box-sizing: border-box; font-family: 'Montserrat', sans-serif; 
+            font-size: 13px; background-color: #fdfbf8; transition: all 0.3s;
+        }
+        .feedback-form-box input:focus, .feedback-form-box textarea:focus { outline: none; border-color: #cc7a6f; background-color: #fff; box-shadow: 0 0 0 3px rgba(204,122,111,0.08); }
+        
+        /* Nút bấm hành động quý phái */
+        .btn-action { 
+            background-color: #1a1514; color: white; border: none; 
+            padding: 15px 40px; border-radius: 2px; cursor: pointer; 
+            font-weight: 600; font-size: 12px; letter-spacing: 2px; 
+            text-transform: uppercase; transition: all 0.3s; 
+        }
+        .btn-action:hover { background-color: #cc7a6f; transform: translateY(-1px); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <div class="top-bar-item">📍 HỆ THỐNG CỬA HÀNG CRABIT</div>
+                <div class="top-bar-item" onclick="alert('Đang liên kết dữ liệu doanh nghiệp...')">📞 ĐẶT SẢN XUẤT SỈ BÌA SỔ</div>
+            </div>
+            <div>Mã FREESHIP15 - Ưu đãi giảm 15.000đ từ đơn 150.000đ</div>
+        </div>
+
+        <div class="main-nav-container">
+            <div class="brand-logo" onclick="switchTab('trang-chu-danh-muc')">CRABIT</div>
+            <div class="menu-links">
+                <a id="nav-trang-chu" class="active" onclick="switchTab('trang-chu-danh-muc')">Trang chủ</a>
+                <a onclick="alert('Trang Sản Phẩm của nhóm đang đồng bộ...')">Sản phẩm</a>
+                <a onclick="alert('Trang Ưu Đãi của nhóm đang đồng bộ...')">Ưu đãi</a>
+                <a id="nav-feedback" onclick="switchTab('trang-feedback-khach')">Ý kiến đối tác</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        
+        <div id="tab-trang-chu-danh-muc" class="tab-content active">
+            
+            <div class="slider-wrapper">
+                <div class="slides-track" id="track-movement">
+                        <div class="slide-item">
+                            <img class="slide-img" src="anh1.jpg" alt="slide 1">
+                            <div class="slide-overlay"></div>
+                            <div class="slide-text-box">
+                                <h2>A line at a time</h2>
+                                <p>Nét ký họa mộng mơ khai mở không gian sáng tạo</p>
+                            </div>
+                        </div>
+                        <div class="slide-item">
+                            <img class="slide-img" src="anh2.jpg" alt="slide 2">
+                            <div class="slide-overlay"></div>
+                            <div class="slide-text-box">
+                                <h2>Live Otterly</h2>
+                                <p>Stay chill, be utterly you!</p>
+                            </div>
+                        </div>
+                        <div class="slide-item">
+                            <img class="slide-img" src="anh3.jpg" alt="slide 3">
+                            <div class="slide-overlay"></div>
+                            <div class="slide-text-box">
+                                <h2>Reconnect The Dots</h2>
+                                <p>Gắn kết những điểm chạm cảm xúc trên trang giấy</p>
+                            </div>
+                        </div>
+                </div>
+                
+                <div class="slider-indicators">
+                    <div class="indicator-dot active" onclick="goToSlide(0)"></div>
+                    <div class="indicator-dot" onclick="goToSlide(1)"></div>
+                    <div class="indicator-dot" onclick="goToSlide(2)"></div>
+                </div>
+                <button class="slider-control prev" onclick="prevSlide()">‹</button>
+                <button class="slider-control next" onclick="nextSlide()">›</button>
+            </div>
+
+            <div class="main-container">
+                <h3 class="section-headline">Hành Trình Kiến Tạo Bản Sắc</h3>
+                <div class="trust-grid">
+                    <div class="trust-card">
+                        <div class="trust-number">20+ Năm</div>
+                        <div class="trust-text">Kinh nghiệm in ấn chế tác sổ tay</div>
+                    </div>
+                    <div class="trust-card">
+                        <div class="trust-number">5,000+</div>
+                        <div class="trust-text">Doanh nghiệp & Trường học đồng hành</div>
+                    </div>
+                    <div class="trust-card">
+                        <div class="trust-number">100.000</div>
+                        <div class="trust-text">Ấn phẩm tiêu chuẩn xuất xưởng mỗi ngày</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 55px;">
+                    <button class="btn-action" onclick="switchTab('trang-feedback-khach')">Xem phản hồi từ đối tác chiến lược</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-trang-feedback-khach" class="tab-content">
+            <div class="main-container">
+                <div class="feedback-container">
+                    <h2 style="margin-top:0; color:#1a1514; text-align:center; font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 40px;">Đánh Giá Từ Đối Tác Chiến Lược</h2>
+                    
+                    <div id="render-feedback-here">
+                        <div class="feedback-row">
+                            <p class="feedback-content">"Chất lượng sổ tay rất tuyệt vời, chất giấy mịn chống lóa tốt, bìa thiết kế màu pastel cực kỳ sang trọng và đúng gu thẩm mỹ của khối văn phòng chúng tôi."</p>
+                            <div class="feedback-signature">— Ban Hành Chính - Tập đoàn Công nghệ Alpha</div>
+                        </div>
+                        <div class="feedback-row">
+                            <p class="feedback-content">"Nhà xưởng đáp ứng đúng tiến độ in ấn số lượng lớn 5000 cuốn vở cho mùa tựu trường. Mực in rõ nét, giấy dày dặn không hề bị thấm mực ra trang sau."</p>
+                            <div class="feedback-signature">— Đại diện Ban giám hiệu - Hệ thống Giáo dục Chu Văn An</div>
+                        </div>
+                    </div>
+
+                    <div class="feedback-form-box">
+                        <h3>Gửi Ý Kiến Đóng Góp Của Bạn</h3>
+                        <form id="feedbackSubmissionForm" onsubmit="executeSubmitFeedback(event)">
+                            <input type="text" id="inputName" placeholder="Tên của bạn hoặc Tên trường học/Doanh nghiệp" required>
+                            <textarea id="inputMessage" rows="4" placeholder="Chia sẻ cảm nhận hoặc đóng góp ý kiến của bạn về chất lượng dịch vụ của Crabit..." required></textarea>
+                            <button type="submit" class="btn-action">Gửi ý kiến ngay</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        /* 1. XỬ LÝ BẤM MENU CHUYỂN ĐỔI - BẤM VÀO TRANG CHỦ HIỂN THỊ LẠI TRANG CŨ BAN ĐẦU */
+        function switchTab(targetTabId) {
+            document.getElementById('tab-trang-chu-danh-muc').classList.remove('active');
+            document.getElementById('tab-trang-feedback-khach').classList.remove('active');
+            
+            document.getElementById('nav-trang-chu').classList.remove('active');
+            document.getElementById('nav-feedback').classList.remove('active');
+
+            if(targetTabId === 'trang-chu-danh-muc') {
+                document.getElementById('tab-trang-chu-danh-muc').classList.add('active');
+                document.getElementById('nav-trang-chu').classList.add('active');
+            } else if(targetTabId === 'trang-feedback-khach') {
+                document.getElementById('tab-trang-feedback-khach').classList.add('active');
+                document.getElementById('nav-feedback').classList.add('active');
+            }
+        }
+
+        /* 2. HIỆU ỨNG TỰ ĐỘNG CHUYỂN CẢNH BANNER TRƯỢT NGANG */
+        let currentActiveSlide = 0;
+        const trackMovement = document.getElementById('track-movement');
+        const allDots = document.querySelectorAll('.indicator-dot');
+
+        const slides = document.querySelectorAll('.slide-item');
+        const totalSlides = slides.length;
+
+        function refreshSliderUI() {
+            // Use percent-based sizing: track width = totalSlides * 100%
+            trackMovement.style.width = `${totalSlides * 100}%`;
+            slides.forEach(slide => {
+                slide.style.flex = '0 0 100%';
+                slide.style.width = `${100 / totalSlides}%`;
+            });
+
+            // Move track by fraction of its width so each translate shifts exactly one slide
+            const shiftPercent = currentActiveSlide * (100 / totalSlides);
+            trackMovement.style.transform = `translateX(-${shiftPercent}%)`;
+
+            allDots.forEach(dot => dot.classList.remove('active'));
+            if (allDots[currentActiveSlide]) allDots[currentActiveSlide].classList.add('active');
+        }
+
+        // Recalculate sizes on window resize
+        window.addEventListener('resize', refreshSliderUI);
+
+        function prevSlide() {
+            currentActiveSlide = (currentActiveSlide - 1 + totalSlides) % totalSlides;
+            refreshSliderUI();
+        }
+
+        function nextSlide() {
+            currentActiveSlide = (currentActiveSlide + 1) % totalSlides;
+            refreshSliderUI();
+        }
+
+        function goToSlide(slidePositionIndex) {
+            currentActiveSlide = slidePositionIndex;
+            refreshSliderUI();
+        }
+
+        // Auto-play control with pause on hover
+        let autoTimerId = null;
+        function startAutoPlay() {
+            stopAutoPlay();
+            autoTimerId = setInterval(() => {
+                currentActiveSlide = (currentActiveSlide + 1) % totalSlides;
+                refreshSliderUI();
+            }, 4000);
+        }
+        function stopAutoPlay() {
+            if (autoTimerId) { clearInterval(autoTimerId); autoTimerId = null; }
+        }
+
+        // Start after window load to ensure correct container width
+        window.addEventListener('load', () => {
+            refreshSliderUI();
+            startAutoPlay();
+        });
+
+        // Pause on hover
+        const sliderWrapperEl = document.querySelector('.slider-wrapper');
+        if (sliderWrapperEl) {
+            sliderWrapperEl.addEventListener('mouseenter', stopAutoPlay);
+            sliderWrapperEl.addEventListener('mouseleave', startAutoPlay);
+        }
+
+        // Image load/error helpers - show placeholder if image fails or is blank
+        const slideImages = document.querySelectorAll('img.slide-img');
+        slideImages.forEach(img => {
+            // If image fails to load, mark parent
+            img.addEventListener('error', () => {
+                const parent = img.closest('.slide-item');
+                if (parent) {
+                    parent.classList.add('no-img');
+                    // hide broken image
+                    img.style.display = 'none';
+                }
+            });
+            // If image loads but is very small, also mark (guard)
+            img.addEventListener('load', () => {
+                if (img.naturalWidth === 0 || img.naturalHeight === 0) {
+                    const parent = img.closest('.slide-item');
+                    if (parent) {
+                        parent.classList.add('no-img');
+                        img.style.display = 'none';
+                    }
+                }
+            });
+        });
+
+        /* 3. THÊM Ý KIẾN KHÁCH HÀNG */
+        function executeSubmitFeedback(event) {
+            event.preventDefault();
+            const senderName = document.getElementById('inputName').value;
+            const senderMessage = document.getElementById('inputMessage').value;
+            const listDisplayContainer = document.getElementById('render-feedback-here');
+
+            const newRowElement = document.createElement('div');
+            newRowElement.className = 'feedback-row';
+            newRowElement.style.borderLeft = '1px solid #cc7a6f';
+            newRowElement.style.paddingLeft = '20px';
+            newRowElement.innerHTML = `
+                <p class="feedback-content">"${senderMessage}"</p>
+                <div class="feedback-signature">— ${senderName} (Hệ thống ghi nhận thành công)</div>
+            `;
+
+            listDisplayContainer.appendChild(newRowElement);
+            document.getElementById('feedbackSubmissionForm').reset();
+            alert('Cảm ơn bạn! Hệ thống đã ghi nhận đánh giá nghệ thuật của bạn.');
+        }
+    </script>
+</body>
+</html>
