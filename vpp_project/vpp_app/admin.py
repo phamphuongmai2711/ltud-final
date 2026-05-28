@@ -10,11 +10,13 @@ class ContactLeadAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
 
 
+from django.contrib import admin
+from .models import Product
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'sku')
-    search_fields = ('name', 'sku')
-#######################
+    list_display = ('name', 'price', 'quantity')
+    search_fields = ('name',)
 
 from .models import Product, Category, Post
 
