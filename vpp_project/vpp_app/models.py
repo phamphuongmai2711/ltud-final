@@ -2,12 +2,15 @@ from django.db import models
 from django.utils.timezone import now
 
 class Product(models.Model):
-    name = models.CharField(max_length=200) # Trường tên sản phẩm
-    sku = models.CharField(max_length=50) # Mã sản phẩm
-    description = models.TextField() # Trường mô tả chi tiết
+    name = models.CharField(max_length=200)  # Trường tên sản phẩm
+    sku = models.CharField(max_length=50, blank=True, default='')  # Mã sản phẩm
+    price = models.IntegerField(default=0)  # Trường giá sản phẩm
+    quantity = models.IntegerField(default=0)  # Trường số lượng sản phẩm
+    description = models.TextField()  # Trường mô tả chi tiết
+    image = models.ImageField(upload_to='product_images/', blank=True, null=True)  # Trường hình ảnh sản phẩm
 
     def __str__(self):
-        return self.name # Hiển thị tên sản phẩm khi truy vấn trong trang Admin
+        return self.name  # Hiển thị tên sản phẩm khi truy vấn trong trang Admin
 
 class ContactLead(models.Model):
     CUSTOMER_TYPE_CHOICES = [
@@ -46,3 +49,19 @@ class ActiveViewer(models.Model):
 
     def __str__(self):
         return f"{self.page_name} - Khách: {self.session_key}"
+    
+class Category(models.Model):
+    name = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.name
+
+class Post(models.Model):
+    title = models.CharField(max_length=300)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='news/', blank=True, null=True)
+    date = models.DateField(auto_now_add=True)
+    content = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.title

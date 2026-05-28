@@ -23,5 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('vpp_app.urls')), # <-- Bổ sung dòng này để trỏ về app vpp_app
     
-    path('products/', include('products.urls')),
+    path('products/', include('vpp_app.urls')),  # ← thêm dòng này
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

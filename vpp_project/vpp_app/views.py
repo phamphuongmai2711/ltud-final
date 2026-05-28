@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.timezone import now 
 from datetime import timedelta # <-- Nhớ có dòng này để tính mốc 5 phút
-from .models import Product, ActiveViewer 
+from .models import Product, ActiveViewer, Category, Post
 from .forms import ContactForm
 
 # ====================================================================
@@ -33,7 +33,12 @@ def about(request):
 def product_list(request):
     track_active_viewer(request, 'Trang Sản Phẩm')
     products = Product.objects.all()
-    return render(request, "vpp_app/product_list.html", {"products": products})
+    return render(request, "vpp_app/product/list.html", {"products": products})
+
+def product_detail(request, pk):
+    track_active_viewer(request, 'Trang Chi Tiết Sản Phẩm')
+    product = get_object_or_404(Product, pk=pk)
+    return render(request, "vpp_app/product/detail.html", {"product": product})
 
 def news(request):
     track_active_viewer(request, 'Trang Tin Tức')
@@ -75,3 +80,15 @@ def admin_dashboard(request):
     }
     # Nhớ sửa lại đúng đường dẫn thư mục templates của bạn (vpp_app/dashboard.html)
     return render(request, 'vpp_app/dashboard.html', context)
+
+def news(request):
+    categories = Category.objects.all()
+    posts = Post.objects.all()
+    return render(request, 'vpp_app/news.html', {
+        'categories': categories,
+        'posts': posts
+    })
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'vpp_app/post_detail.html', {'post': post})

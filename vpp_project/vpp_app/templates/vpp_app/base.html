@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}VPP Nóte{% endblock %}</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS PHẦN HEADER — copy từ file trang chủ */
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            margin: 0; padding: 0; 
+            background-color: #fdfbf7; 
+            color: #2c2523;
+            padding-top: 80px; /* bằng chiều cao của navbar */
+        }
+        header { 
+            background-color: #ffffff; 
+            position: fixed; top: 0; width: 100%; z-index: 1000; 
+            box-shadow: 0 4px 25px rgba(44,37,35,0.03);
+            border-bottom: 1px solid #f3ece4;
+        }
+        .top-bar { max-width: 1200px; margin: 0 auto; padding: 10px 20px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; color: #8c7e7a; }
+        .main-nav-container { max-width: 1200px; margin: 0 auto; padding: 22px 20px; display: flex; flex-direction: column; align-items: center; }
+        .brand-logo { font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 700; letter-spacing: 10px; color: #1a1514; margin-bottom: 18px; cursor: pointer; }
+        .menu-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; }
+        .menu-links a { text-decoration: none; color: #4a3f3d; font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; letter-spacing: 1px; padding: 5px 0; position: relative; transition: color 0.3s; }
+        .menu-links a:hover, .menu-links a.active { color: #cc7a6f; }
+        .menu-links a::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 1px; background-color: #cc7a6f; transition: all 0.35s ease; transform: translateX(-50%); }
+        .menu-links a:hover::after, .menu-links a.active::after { width: 100%; }
+        .content-wrapper { margin-top: 155px; }
+
+        {% block extra_css %}{% endblock %}
+    </style>
+</head>
+<body>
+    
+    <!-- HEADER CHUNG -->
+    <header>
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <span class="top-bar-item">Miễn phí vận chuyển đơn từ 300k</span>
+            </div>
+        </div>
+        <div class="main-nav-container">
+            <div class="brand-logo">NÓTE</div>
+            <nav class="menu-links">
+                <a href="{% url 'home' %}">Trang chủ</a>
+                <a href="{% url 'about' %}">Giới thiệu</a>
+                <a href="{% url 'product_list' %}">Sản phẩm</a>
+                <a href="{% url 'news' %}">Tin tức</a>
+                <a href="{% url 'contact' %}">Liên hệ</a>
+        
+        
+            </nav>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

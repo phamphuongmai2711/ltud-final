@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'vpp_app/base.html' %}
+    {% load static %}
+
+{% block title %}Liên hệ | Nóte{% endblock %}
+
+{% block extra_css %}
     <title>Liên hệ - Văn Phòng Phẩm</title>
     <style>
         body {
@@ -135,8 +136,9 @@
             border: 1px solid #d7e5f0;
         }
     </style>
-</head>
-<body>
+    {% endblock %}
+
+    {% block content %}
     <div class="page-shell">
         <header class="page-header">
             <p class="section-title">Liên hệ / Contact</p>
@@ -223,3 +225,4 @@
     </div>
 </body>
 </html>
+    {% endblock %}

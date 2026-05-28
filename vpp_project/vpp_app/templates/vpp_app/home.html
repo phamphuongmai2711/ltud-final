@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRABIT NOTEBOOK - Cửa Hàng Sổ Tay Nghệ Thuật</title>
+    <title> NÓTE - Cửa Hàng Sổ Tay Nghệ Thuật</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,7 +71,7 @@
         }
         
         /* Các nút chức năng trên Menu chữ nghệ thuật */
-        .menu-links { display: flex; gap: 45px; }
+        .menu-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; }
         .menu-links a { 
             text-decoration: none; 
             color: #4a3f3d; 
@@ -312,19 +312,22 @@
     <header>
         <div class="top-bar">
             <div class="top-bar-left">
-                <div class="top-bar-item">📍 HỆ THỐNG CỬA HÀNG CRABIT</div>
+                <div class="top-bar-item">📍 HỆ THỐNG CỬA HÀNG Nóte</div>
                 <div class="top-bar-item" onclick="alert('Đang liên kết dữ liệu doanh nghiệp...')">📞 ĐẶT SẢN XUẤT SỈ BÌA SỔ</div>
             </div>
             <div>Mã FREESHIP15 - Ưu đãi giảm 15.000đ từ đơn 150.000đ</div>
         </div>
 
         <div class="main-nav-container">
-            <div class="brand-logo" onclick="switchTab('trang-chu-danh-muc')">CRABIT</div>
+            <div class="brand-logo" onclick="window.location.href='{% url 'home' %}'">NÓTE</div>
             <div class="menu-links">
-                <a id="nav-trang-chu" class="active" onclick="switchTab('trang-chu-danh-muc')">Trang chủ</a>
-                <a onclick="alert('Trang Sản Phẩm của nhóm đang đồng bộ...')">Sản phẩm</a>
-                <a onclick="alert('Trang Ưu Đãi của nhóm đang đồng bộ...')">Ưu đãi</a>
-                <a id="nav-feedback" onclick="switchTab('trang-feedback-khach')">Ý kiến đối tác</a>
+                <a id="nav-trang-chu" class="active" href="{% url 'home' %}">Trang chủ</a>
+                <a href="{% url 'about' %}">Giới thiệu</a>
+                <a href="{% url 'product_list' %}">Sản phẩm</a>
+                <a href="{% url 'news' %}">Tin tức</a>
+                <a href="{% url 'contact' %}">Liên hệ</a>
+                <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+                <a id="nav-feedback" onclick="switchTab('trang-feedback-khach'); return false;">Ý kiến đối tác</a>
             </div>
         </div>
     </header>

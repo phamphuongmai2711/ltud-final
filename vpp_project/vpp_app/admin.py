@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin  # type: ignore[import]
 from .models import Product, ContactLead
 
 
@@ -14,3 +14,15 @@ class ContactLeadAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'sku')
     search_fields = ('name', 'sku')
+#######################
+
+from .models import Product, Category, Post
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'category', 'date')
+    search_fields = ('title',)
