@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+    <style>
+        :root {
+            --bg-body: #f5f5f7;
+            --bg-card: #ffffff;
+            --text-dark: #111111;
+            --text-muted: #6e6e73;
+            --border-color: #edeef0;
+            --font-serif: 'Times New Roman', Times, serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-serif); background-color: var(--bg-body); color: var(--text-dark); padding-bottom: 80px; }
+
+        .header-site { background-color: #ffffff; text-align: center; padding: 35px 20px; border-bottom: 1px solid var(--border-color); margin-bottom: 40px; }
+        .header-site h1 { font-size: 32px; font-weight: normal; text-transform: uppercase; letter-spacing: 3px; }
+
+        .back-link { display: inline-block; margin: 0 auto 30px; text-decoration: none; color: #888; font-size: 13px; letter-spacing: 1px; }
+        .back-link:hover { color: #333; }
+
+        .detail-container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+
+        .post-image { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 16px; margin-bottom: 30px; }
+
+        .post-category { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 12px; }
+
+        .post-title { font-size: 28px; font-weight: normal; line-height: 1.4; margin-bottom: 12px; }
+
+        .post-date { font-size: 13px; color: var(--text-muted); margin-bottom: 30px; }
+
+        .divider { border: none; border-top: 1px solid var(--border-color); margin: 24px 0; }
+
+        .post-content { font-size: 16px; line-height: 1.8; color: #333; }
+    </style>
+</head>
+<body>
+
+    <div class="header-site">
+        <h1>VĂN PHÒNG PHẨM NÓTE</h1>
+    </div>
+
+    <div class="detail-container">
+        <a class="back-link" href="{% url 'news' %}">← Quay lại tin tức</a>
+
+        {% if post.image %}
+            <img class="post-image" src="{{ post.image.url }}" alt="{{ post.title }}">
+        {% endif %}
+
+        <p class="post-category">{{ post.category.name }}</p>
+        <h1 class="post-title">{{ post.title }}</h1>
+        <p class="post-date">{{ post.date }}</p>
+
+        <hr class="divider">
+
+        <div class="post-content">{{ post.content }}</div>
+    </div>
+
+</body>
+</html>

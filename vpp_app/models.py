@@ -49,3 +49,19 @@ class ActiveViewer(models.Model):
 
     def __str__(self):
         return f"{self.page_name} - Khách: {self.session_key}"
+    
+class Category(models.Model):
+    name = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.name
+
+class Post(models.Model):
+    title = models.CharField(max_length=300)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='news/', blank=True, null=True)
+    date = models.DateField(auto_now_add=True)
+    content = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.title
