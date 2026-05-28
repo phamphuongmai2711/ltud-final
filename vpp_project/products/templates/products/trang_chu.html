@@ -10,17 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
-        /* DESIGN GUIDELINE: Phong cách thơ mộng, nghệ thuật, font chữ có chân quý phái */
         body { 
             font-family: 'Montserrat', sans-serif; 
             margin: 0; 
             padding: 0; 
-            background-color: #fdfbf7; /* Màu nền kem giấy nghệ thuật nhẹ nhàng */
+            background-color: #fdfbf7; 
             color: #2c2523;
             -webkit-font-smoothing: antialiased;
         }
         
-        /* ================= 1. THANH MENU CHỨC NĂNG NGHỆ THUẬT (STICKY HEADER) ================= */
         header { 
             background-color: #ffffff; 
             position: fixed; 
@@ -31,7 +29,6 @@
             border-bottom: 1px solid #f3ece4;
         }
         
-        /* Thanh thông báo nhỏ trên cùng (Top bar) */
         .top-bar {
             max-width: 1200px;
             margin: 0 auto;
@@ -49,7 +46,6 @@
         .top-bar-item { cursor: pointer; transition: color 0.3s; }
         .top-bar-item:hover { color: #cc7a6f; }
 
-        /* Thanh menu điều hướng chính */
         .main-nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -59,24 +55,22 @@
             align-items: center;
         }
         
-        /* Chữ Logo nghệ thuật cách điệu */
         .brand-logo { 
             font-family: 'Playfair Display', serif;
             font-size: 34px; 
             font-weight: 700; 
-            letter-spacing: 10px; /* Giãn chữ nghệ thuật rất rộng */
+            letter-spacing: 10px; 
             color: #1a1514; 
             margin-bottom: 18px; 
             cursor: pointer; 
         }
         
-        /* Các nút chức năng trên Menu chữ nghệ thuật */
         .menu-links { display: flex; gap: 45px; }
         .menu-links a { 
             text-decoration: none; 
             color: #4a3f3d; 
             font-family: 'Cormorant Garamond', serif;
-            font-size: 18px; /* Font chữ thơ mộng, nét thanh nét đậm */
+            font-size: 18px; 
             font-weight: 600; 
             letter-spacing: 1px;
             padding: 5px 0;
@@ -86,7 +80,6 @@
         }
         .menu-links a:hover, .menu-links a.active { color: #cc7a6f; }
         
-        /* Đường gạch chân khi trỏ chuột vào thanh chức năng */
         .menu-links a::after {
             content: '';
             position: absolute;
@@ -100,96 +93,86 @@
         }
         .menu-links a:hover::after, .menu-links a.active::after { width: 100%; }
 
-        /* Bù khoảng trống chiều cao menu cố định */
         .content-wrapper { margin-top: 155px; }
 
-        /* ================= 2. BANNER CHUYỂN CẢNH MƯỢT MÀ VỚI ẢNH NỘI BỘ ================= */
+        /* ================= FIX LỖI HIỂN THỊ CHIA TÁCH SLIDER ================= */
         .slider-wrapper {
             width: 100%;
             max-width: 1100px;
-            height: 420px;
+            height: 460px; 
             margin: 0 auto;
             position: relative;
             overflow: hidden;
             border-bottom: 1px solid #f3ece4;
+            background-color: #f5f2ed; 
         }
         .slides-track {
             display: flex;
-            flex-wrap: nowrap;
             height: 100%;
-            transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); /* Hiệu ứng lướt lướt êm ái quý phái */
+            /* Độ rộng track sẽ được JS tự động tính toán dựa trên số lượng slide, tránh chồng lấn */
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
             will-change: transform;
         }
         .slide-item {
-            width: 100%;
-            height: 100%;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex: 0 0 100%;
+            height: 100%;
             overflow: hidden;
-            /* subtle background to detect missing/white images */
-            background-color: #f6f4f2;
+            /* Triệt tiêu thuộc tính thu hẹp của flexbox để giữ đúng 100% chiều rộng khung cho mỗi ảnh */
+            flex-shrink: 0; 
+            flex-grow: 0;
         }
         .slide-item img.slide-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important; 
+            object-position: center !important; 
             display: block;
-            max-width: 1100px;
-            margin: 0 auto;
         }
 
-        .slide-item.no-img {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #7a6e6a;
-            font-weight: 600;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 18px;
-            background-color: #e9e6e4;
-        }
-        /* Lớp phủ mịn làm dịu ảnh cho chữ nổi lên */
         .slide-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(253, 251, 247, 0.15); 
+            background: rgba(44, 37, 35, 0.25); 
+            z-index: 2;
         }
         .slide-text-box {
-            position: relative;
-            z-index: 2;
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
             text-align: center;
             color: #1a1514;
-            max-width: 700px;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.85); /* Khung nền giấy mờ lãng mạn */
-            border: 1px solid rgba(243,236,228,0.6);
-            backdrop-filter: blur(5px);
+            width: 80%;
+            max-width: 620px;
+            padding: 25px 35px;
+            background: rgba(255, 255, 255, 0.96); 
+            border: 1px solid rgba(243,236,228,0.7);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.06);
             border-radius: 2px;
         }
         .slide-text-box h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 42px;
+            font-size: 34px;
             font-weight: 600;
             font-style: italic;
-            margin: 0 0 15px 0;
+            margin: 0 0 10px 0;
             color: #1a1514;
+            letter-spacing: 0.5px;
         }
         .slide-text-box p {
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 500;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: #6e5f5c;
+            color: #7a6b68;
             margin: 0;
         }
 
-        /* Dấu chấm tròn nhỏ tinh tế chuyển cảnh dưới Banner */
         .slider-indicators {
             position: absolute;
-            bottom: 25px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -197,15 +180,17 @@
             z-index: 10;
         }
         .indicator-dot {
-            width: 6px;
-            height: 6px;
-            background-color: rgba(44, 37, 35, 0.2);
+            width: 7px;
+            height: 7px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.4s;
         }
         .indicator-dot.active { 
             background-color: #cc7a6f; 
+            border-color: #cc7a6f;
             transform: scale(1.4); 
         }
 
@@ -213,8 +198,8 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(26,21,20,0.5);
-            color: #fff;
+            background: rgba(255, 255, 255, 0.75);
+            color: #1a1514;
             border: none;
             width: 44px;
             height: 44px;
@@ -224,20 +209,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .slider-control.prev { left: 18px; }
-        .slider-control.next { right: 18px; }
+        .slider-control:hover {
+            background: #ffffff;
+            color: #cc7a6f;
+        }
+        .slider-control.prev { left: 20px; }
+        .slider-control.next { right: 20px; }
 
-        /* ================= 3. KHỐI NỘI DUNG CHÍNH TRANG CHỦ ================= */
         .main-container { max-width: 1100px; margin: 70px auto; padding: 0 20px; }
         
-        /* Hiệu ứng chuyển đổi đóng mở trang ẩn/hiện mượt mà */
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: elegantFade 0.6s ease; }
         @keyframes elegantFade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Tiêu đề chữ nghệ thuật tinh tế */
         .section-headline { 
             text-align: center; 
             font-family: 'Playfair Display', serif;
@@ -248,7 +236,6 @@
             letter-spacing: 1px;
         }
         
-        /* Lưới hiển thị các thông số uy tín */
         .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 35px; text-align: center; }
         .trust-card { 
             background: #ffffff; 
@@ -262,18 +249,16 @@
         .trust-number { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 600; font-style: italic; color: #cc7a6f; }
         .trust-text { font-size: 11px; font-weight: 600; color: #8c7e7a; margin-top: 12px; letter-spacing: 1.5px; text-transform: uppercase; }
 
-        /* ================= 4. KHỐI Ý KIẾN KHÁCH HÀNG CHỮ ĐẸP ================= */
         .feedback-container { background: #ffffff; padding: 60px; border-radius: 2px; border: 1px solid #f3ece4; box-shadow: 0 4px 25px rgba(230,220,210,0.12); }
         .feedback-row { border-bottom: 1px solid #fbf9f6; padding: 30px 0; }
         .feedback-row:last-child { border-bottom: none; }
         
-        /* Chữ nội dung feedback nghệ thuật */
         .feedback-content { 
             font-family: 'Cormorant Garamond', serif; 
             font-style: italic; 
             color: #3d3331; 
             line-height: 1.8; 
-            font-size: 20px; /* Font chữ lớn, nét bay bổng quý phái */
+            font-size: 20px; 
             margin: 0;
         }
         .feedback-signature { 
@@ -286,7 +271,6 @@
             text-transform: uppercase; 
         }
         
-        /* Khung Form điền ý kiến */
         .feedback-form-box { margin-top: 60px; border-top: 1px dashed #e6ded6; padding-top: 50px; }
         .feedback-form-box h3 { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 600; color: #1a1514; margin-bottom: 25px; }
         .feedback-form-box input, .feedback-form-box textarea { 
@@ -297,7 +281,6 @@
         }
         .feedback-form-box input:focus, .feedback-form-box textarea:focus { outline: none; border-color: #cc7a6f; background-color: #fff; box-shadow: 0 0 0 3px rgba(204,122,111,0.08); }
         
-        /* Nút bấm hành động quý phái */
         .btn-action { 
             background-color: #1a1514; color: white; border: none; 
             padding: 15px 40px; border-radius: 2px; cursor: pointer; 
@@ -335,28 +318,33 @@
             
             <div class="slider-wrapper">
                 <div class="slides-track" id="track-movement">
+                        <!-- BANNER 1: CẬN CẢNH SỔ MỞ VÀ TÁCH CÀ PHÊ -->
                         <div class="slide-item">
-                            <img class="slide-img" src="anh1.jpg" alt="slide 1">
+                            <img class="slide-img" src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=1100&q=80" alt="Banner 1">
                             <div class="slide-overlay"></div>
                             <div class="slide-text-box">
-                                <h2>A line at a time</h2>
-                                <p>Nét ký họa mộng mơ khai mở không gian sáng tạo</p>
+                                <h2>Nơi Cảm Xúc Lên Ngôi</h2>
+                                <p>Từng trang giấy là một bước chân hành trình sáng tạo.</p>
                             </div>
                         </div>
+                        
+                        <!-- BANNER 2: CÁC CUỐN SỔ TAY MINIMALIST XẾP ĐẸP MẮT -->
                         <div class="slide-item">
-                            <img class="slide-img" src="anh2.jpg" alt="slide 2">
+                            <img class="slide-img" src="https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&w=1100&q=80" alt="Banner 2">
                             <div class="slide-overlay"></div>
                             <div class="slide-text-box">
-                                <h2>Live Otterly</h2>
-                                <p>Stay chill, be utterly you!</p>
+                                <h2>Ghi Chép Tối Giản</h2>
+                                <p>Thiết kế tinh tế mang đậm hơi thở nghệ thuật đương đại.</p>
                             </div>
                         </div>
+                        
+                        <!-- BANNER 3: GÓC XƯỞNG THIẾT KẾ VÀ GIẤY CRAFT MỘC MẠC -->
                         <div class="slide-item">
-                            <img class="slide-img" src="anh3.jpg" alt="slide 3">
+                            <img class="slide-img" src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1100&q=80" alt="Banner 3">
                             <div class="slide-overlay"></div>
                             <div class="slide-text-box">
-                                <h2>Reconnect The Dots</h2>
-                                <p>Gắn kết những điểm chạm cảm xúc trên trang giấy</p>
+                                <h2>Lưu Giữ Bản Sắc</h2>
+                                <p>Đồng hành cùng bạn định hình phong cách sống thẩm mỹ.</p>
                             </div>
                         </div>
                 </div>
@@ -424,7 +412,6 @@
     </div>
 
     <script>
-        /* 1. XỬ LÝ BẤM MENU CHUYỂN ĐỔI - BẤM VÀO TRANG CHỦ HIỂN THỊ LẠI TRANG CŨ BAN ĐẦU */
         function switchTab(targetTabId) {
             document.getElementById('tab-trang-chu-danh-muc').classList.remove('active');
             document.getElementById('tab-trang-feedback-khach').classList.remove('active');
@@ -441,23 +428,22 @@
             }
         }
 
-        /* 2. HIỆU ỨNG TỰ ĐỘNG CHUYỂN CẢNH BANNER TRƯỢT NGANG */
         let currentActiveSlide = 0;
         const trackMovement = document.getElementById('track-movement');
         const allDots = document.querySelectorAll('.indicator-dot');
-
         const slides = document.querySelectorAll('.slide-item');
         const totalSlides = slides.length;
 
         function refreshSliderUI() {
-            // Use percent-based sizing: track width = totalSlides * 100%
+            // Thiết lập chính xác độ rộng tổng của track bằng số lượng ảnh * 100%
             trackMovement.style.width = `${totalSlides * 100}%`;
+            
+            // Ép mỗi slide chiếm chính xác 1 phần tổng số lượng và rộng bằng 100% khung wrapper
             slides.forEach(slide => {
-                slide.style.flex = '0 0 100%';
                 slide.style.width = `${100 / totalSlides}%`;
             });
 
-            // Move track by fraction of its width so each translate shifts exactly one slide
+            // Tính toán tọa độ dịch chuyển chuẩn theo tỷ lệ phần trăm
             const shiftPercent = currentActiveSlide * (100 / totalSlides);
             trackMovement.style.transform = `translateX(-${shiftPercent}%)`;
 
@@ -465,7 +451,6 @@
             if (allDots[currentActiveSlide]) allDots[currentActiveSlide].classList.add('active');
         }
 
-        // Recalculate sizes on window resize
         window.addEventListener('resize', refreshSliderUI);
 
         function prevSlide() {
@@ -483,7 +468,6 @@
             refreshSliderUI();
         }
 
-        // Auto-play control with pause on hover
         let autoTimerId = null;
         function startAutoPlay() {
             stopAutoPlay();
@@ -496,44 +480,17 @@
             if (autoTimerId) { clearInterval(autoTimerId); autoTimerId = null; }
         }
 
-        // Start after window load to ensure correct container width
         window.addEventListener('load', () => {
             refreshSliderUI();
             startAutoPlay();
         });
 
-        // Pause on hover
         const sliderWrapperEl = document.querySelector('.slider-wrapper');
         if (sliderWrapperEl) {
             sliderWrapperEl.addEventListener('mouseenter', stopAutoPlay);
             sliderWrapperEl.addEventListener('mouseleave', startAutoPlay);
         }
 
-        // Image load/error helpers - show placeholder if image fails or is blank
-        const slideImages = document.querySelectorAll('img.slide-img');
-        slideImages.forEach(img => {
-            // If image fails to load, mark parent
-            img.addEventListener('error', () => {
-                const parent = img.closest('.slide-item');
-                if (parent) {
-                    parent.classList.add('no-img');
-                    // hide broken image
-                    img.style.display = 'none';
-                }
-            });
-            // If image loads but is very small, also mark (guard)
-            img.addEventListener('load', () => {
-                if (img.naturalWidth === 0 || img.naturalHeight === 0) {
-                    const parent = img.closest('.slide-item');
-                    if (parent) {
-                        parent.classList.add('no-img');
-                        img.style.display = 'none';
-                    }
-                }
-            });
-        });
-
-        /* 3. THÊM Ý KIẾN KHÁCH HÀNG */
         function executeSubmitFeedback(event) {
             event.preventDefault();
             const senderName = document.getElementById('inputName').value;
