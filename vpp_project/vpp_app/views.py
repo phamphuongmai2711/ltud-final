@@ -24,7 +24,7 @@ def track_active_viewer(request, name):
 # ====================================================================
 def home(request):
     track_active_viewer(request, 'Trang Chủ')
-    return render(request, "vpp_app/home.html")
+    return render(request, 'products/trang_chu.html')
 
 def about(request):
     track_active_viewer(request, 'Trang Giới Thiệu')
